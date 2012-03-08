@@ -25,12 +25,6 @@ using namespace cv;
 using namespace std;
 
 
-void save_image(const string filename, const Mat& src, const colormap::ColorMap& cm) {
-	Mat img = cm(src);
-	img.convertTo(img, CV_8UC3, 255.0);
-	imwrite(filename, img);
-}
-
 int main(int argc, const char *argv[]) {
 	// example with an image
 	Mat img0 = imread("01.jpg",1);
@@ -46,20 +40,20 @@ int main(int argc, const char *argv[]) {
 	}
 
 	string prefix("colorscale_");
-	save_image(prefix + string("autumn.jpg"), img1, colormap::Autumn());
-	save_image(prefix + string("bone.jpg"), img1, colormap::Bone());
-	save_image(prefix + string("jet.jpg"), img1, colormap::Jet());
-	save_image(prefix + string("winter.jpg"), img1, colormap::Winter());
-	save_image(prefix + string("rainbow.jpg"), img1, colormap::Rainbow());
-	save_image(prefix + string("ocean.jpg"), img1, colormap::Ocean());
-	save_image(prefix + string("summer.jpg"), img1, colormap::Summer());
-	save_image(prefix + string("spring.jpg"), img1, colormap::Spring());
-	save_image(prefix + string("cool.jpg"), img1, colormap::Cool());
-	save_image(prefix + string("hsv.jpg"), img1, colormap::HSV());
-	save_image(prefix + string("pink.jpg"), img1, colormap::Pink());
-	save_image(prefix + string("hot.jpg"), img1, colormap::Hot());
-	save_image(prefix + string("mkpj1.jpg"), img1, colormap::MKPJ1());
-	save_image(prefix + string("mkpj2.jpg"), img1, colormap::MKPJ2());
+	colormap::imwrite(prefix + string("autumn.jpg"), img1, colormap::Autumn());
+	colormap::imwrite(prefix + string("bone.jpg"), img1, colormap::Bone());
+	colormap::imwrite(prefix + string("jet.jpg"), img1, colormap::Jet());
+	colormap::imwrite(prefix + string("winter.jpg"), img1, colormap::Winter());
+	colormap::imwrite(prefix + string("rainbow.jpg"), img1, colormap::Rainbow());
+	colormap::imwrite(prefix + string("ocean.jpg"), img1, colormap::Ocean());
+	colormap::imwrite(prefix + string("summer.jpg"), img1, colormap::Summer());
+	colormap::imwrite(prefix + string("spring.jpg"), img1, colormap::Spring());
+	colormap::imwrite(prefix + string("cool.jpg"), img1, colormap::Cool());
+	colormap::imwrite(prefix + string("hsv.jpg"), img1, colormap::HSV());
+	colormap::imwrite(prefix + string("pink.jpg"), img1, colormap::Pink());
+	colormap::imwrite(prefix + string("hot.jpg"), img1, colormap::Hot());
+	colormap::imwrite(prefix + string("mkpj1.jpg"), img1, colormap::MKPJ1());
+	colormap::imwrite(prefix + string("mkpj2.jpg"), img1, colormap::MKPJ2());
 
 	return 0; // success
 }
