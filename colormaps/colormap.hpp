@@ -476,9 +476,9 @@ public:
 	}
 };
 
-bool imwrite(const std::string& filename, const cv::Mat& img,
+bool imwrite(const string& filename, const cv::Mat& img,
 		const ColorMap& cm=Jet(),
-		const std::vector<int>& params=std::vector<int>());
+		const vector<int>& params=vector<int>());
 
 
 }
