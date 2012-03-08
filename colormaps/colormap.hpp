@@ -36,18 +36,26 @@ public:
 	ColorMap() {}
 
 	//! apply this colormap on source image
-	Mat operator()(Mat src) const {
+	Mat operator()(const Mat& src) const {
 		if(_lut.total() != 256)
 			CV_Error(CV_StsNotImplemented, "Abritrary-sized LUT not implemented yet.");
-		if(src.type() != CV_8UC1 && src.type() != CV_8UC3)
-			CV_Error(CV_StsBadArg, "Only CV_8U images supported.");
+		if(src.depth() != CV_8U && src.depth() != CV_16U && src.depth() != CV_32F)
+			CV_Error(CV_StsBadArg, "Only CV_8U, CV_16U, and CV_32F images are supported.");
+		if(src.channels() != 1 && src.channels() != 3)
+			CV_Error(CV_StsBadArg, "Only RGB and Grayscale images are supported.");
+
 		Mat tmp = src.clone();
 		// turn into grayscale
-		if(src.type() == CV_8UC3)
+		if(src.channels() == 3)
 			cvtColor(src, tmp, CV_BGR2GRAY);
-		cvtColor(tmp, src, CV_GRAY2BGR);
-		LUT(src, _lut, tmp);
-		return tmp;
+		// LUT only supports 8-bit images
+		if(tmp.depth() != CV_8U)
+			normalize(tmp, tmp, 0, 255, NORM_MINMAX, CV_8U);
+
+		cv::Mat ret;
+		cvtColor(tmp, ret, CV_GRAY2BGR);
+		LUT(ret, _lut, ret);
+		return ret;
 	}
 
 	//! setup base map to interpolate from
